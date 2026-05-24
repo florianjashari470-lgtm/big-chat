@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0f0f12;
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Parandalon lëvizjet e padëshiruara në telefon */
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 100vh; /* Merr tërë lartësinë e ekranit */
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+/* --- LOGJIKA E VIDEOS PËR KOMPJUTER (Default) --- */
+.video-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Krah për krah */
+    gap: 15px;
+    min-height: 0; 
+    margin-bottom: 15px;
+}
+
+.video-wrapper {
+    position: relative;
+    background-color: #1a1a24;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    border: 2px solid #2d2d3d;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* E mbush dritaren pa e shtrembëruar fytyrën */
+    background-color: #000;
+}
+
+.video-label {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* --- BUTONAT --- */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding-bottom: env(safe-area-inset-bottom); /* Mbrojtje për telefonat e rinj (si iPhone Notch) */
+}
+
+.btn {
+    flex: 1; /* Butonat marrin hapësirë të barabartë në telefon */
+    max-width: 180px;
+    padding: 16px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.2s ease;
+    text-align: center;
+}
+
+.btn:active {
+    transform: scale(0.96); /* Efekt shtypjeje me gisht */
+}
+
+.btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-start { background-color: #00dd76; color: #000; }
+.btn-start:hover:not(:disabled) { background-color: #00c468; }
+
+.btn-next { background-color: #007aff; color: white; }
+.btn-next:hover:not(:disabled) { background-color: #0063ce; }
+
+.btn-stop { background-color: #ff3b30; color: white; }
+.btn-stop:hover:not(:disabled) { background-color: #d92d25; }
+
+/* --- DINAMIKA AUTOMATIKE PËR TELEFON (Mobile Responsive) --- */
+@media (max-width: 768px) {
+    .chat-container {
+        padding: 10px;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr; /* Kthehet në 1 kolonë të vetme */
+        grid-template-rows: 1fr 1fr; /* Ndajet në dy rreshta sipër e poshtë */
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .video-wrapper {
+        border-radius: 12px; /* Kthesa pak më të vogla në ekran të vogël */
+    }
+
+    .btn {
+        padding: 14px 10px;
+        font-size: 14px; /* Shkronja pak më të vogla që të nxënë në çdo ekran */
+    }
+}
