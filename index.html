@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BigChat - Live Video</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="chat-container">
+        <!-- Zona e Videove -->
+        <div class="video-grid">
+            <!-- Videoja e tjetrit (E madhe) -->
+            <div class="video-wrapper remote-video-wrapper">
+                <video id="remoteVideo" autoplay playsinline></video>
+                <div class="video-label">You</div>
+            </div>
+            
+            <!-- Videoja jote (E vogël, sipër ose anash) -->
+            <div class="video-wrapper local-video-wrapper">
+                <video id="localVideo" autoplay muted playsinline></video>
+                <div class="video-label">Me</div>
+            </div>
+        </div>
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Chat me Socket.io</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; height: 100vh; box-sizing: border-box; }
+        #messages { list-style-type: none; margin: 0; padding: 0; flex-grow: 1; overflow-y: auto; margin-bottom: 20px; }
+        #messages li { padding: 10px; margin-bottom: 5px; background-color: #f1f1f1; border-radius: 5px; }
+        #chat-form { display: flex; }
+        #mesazhi { flex-grow: 1; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px 0 0 5px; }
+        button { padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 0 5px 5px 0; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1><Big-Chat-i></Big-Chat-i> </h1>
+    
+    <ul id="messages"></ul>
+
+    <form id="chat-form">
+        <input id="mesazhi" autocomplete="off" placeholder="Shkruaj mesazhin tënd këtu..." />
+        <button>Dërgo</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        
+        // Gjejmë elementet në HTML
+        const form = document.getElementById('chat-form');
+        const input = document.getElementById('mesazhi');
+        const messages = document.getElementById('messages');
+
+        // Kur përdoruesi dërgon formën (shtyp butonin Dërgo ose Enter)
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Parandalon rifreskimin e faqes
+            if (input.value) {
+                // Dërgojmë mesazhin tek serveri me eventin 'mesazh_chat'
+                socket.emit('mesazh_chat', input.value);
+                input.value = ''; // Fshijmë fushën e tekstit
+            }
+        });
+
+        // Dëgjojmë për mesazhe të reja nga serveri
+        socket.on('mesazh_chat', (msg) => {
+            // Krijojmë një rresht të ri (<li>) dhe e shtojmë në listë
+            const item = document.createElement('li');
+            item.textContent = msg;
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight); // Shkojmë në fund të faqes
+        });
+    </script>
+</body>
+</html>
+        <!-- Butonat e Kontrollit -->
+        <div class="controls">
+            <button id="startBtn" class="btn btn-start">Fillo Chat-in</button>
+            <button id="nextBtn" class="btn btn-next" disabled>Tjetri ➔</button>
+            <button id="stopBtn" class="btn btn-stop" disabled>Ndalo</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
